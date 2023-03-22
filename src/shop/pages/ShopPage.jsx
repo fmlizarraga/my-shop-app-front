@@ -47,7 +47,7 @@ export const ShopPage = () => {
       wrap="wrap"
     >
       <div className={classes.inner} >
-        <HeaderTabsColored user={{name: 'Pepe', image: 'url'}} tabs={['Home', 'Shop', 'About']} />
+        <HeaderTabsColored tabs={['Home', 'Shop', 'About']} />
         <div className={classes.content} >
           { selectViev() }
         </div>

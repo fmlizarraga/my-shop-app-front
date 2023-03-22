@@ -1,14 +1,15 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import { LoginPage } from "../auth"
+import { useAuthStore } from "../hooks"
 import { ShopPage } from "../shop"
 
-const authStatus = "authenticated"
 
 export const AppRouter = () => {
+    const { status } = useAuthStore();
   return (
     <Routes>
         {
-            ( authStatus === 'not-authenticated' )
+            ( status === 'not-authenticated' )
             ? (
                 <>
                     <Route path="/login" element={ <LoginPage/> } />

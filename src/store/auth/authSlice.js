@@ -7,15 +7,15 @@ const pepe = {
     adress: 'Sarmiento 77',
     phone: '+5493815123456',
     email: 'pepe@mail.com',
-    picture: 'http://an-URL',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Jake_LaTurner_Congressional_ID_photo_%28117th%29.jpg',
     cart: []
 }
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        status: 'checking',
-        user: {},
+        status: 'authenticated', // authenticated not-authenticated checking
+        user: pepe,
         errorMsg: undefined
     },
     reducers: {
@@ -24,9 +24,9 @@ export const authSlice = createSlice({
             state.user = {},
             state.errorMsg = undefined
         },
-        onLogin: ( state, /* action */ ) => {
+        onLogin: ( state, { payload } ) => {
             state.status = 'authenticated',
-            state.user = pepe,
+            state.user = payload,
             state.errorMsg = undefined
         },
     }

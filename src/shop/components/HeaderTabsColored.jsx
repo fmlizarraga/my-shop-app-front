@@ -25,6 +25,7 @@ import {
   IconShoppingCart,
 } from '@tabler/icons-react';
 import { MantineLogo } from '@mantine/ds';
+import { useAuthStore } from '../../hooks';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -118,7 +119,8 @@ const useStyles = createStyles((theme) => ({
 //   tabs: string[];
 // }
 
-export const HeaderTabsColored = ({ user, tabs }) => {
+export const HeaderTabsColored = ({ tabs }) => {
+  const { user } = useAuthStore();
   const { classes, theme, cx } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);

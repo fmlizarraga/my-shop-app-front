@@ -46,9 +46,8 @@ export const ShopLayout = () => {
         breakpoints={[{ maxWidth: 'md', cols: 1 }]}
     >
         {
-          products.map(product => <Stack>
+          products.map(product => <Stack key={product.id + '-stack'} >
             <FeaturesCard 
-                key={product.id} 
                 { ...product }
             />
           </Stack>
