@@ -1,4 +1,4 @@
-import { SimpleGrid } from '@mantine/core'
+import { SimpleGrid, Stack } from '@mantine/core'
 import { FeaturesCard } from '../'
 
 const products = [
@@ -46,10 +46,13 @@ export const ShopLayout = () => {
         breakpoints={[{ maxWidth: 'md', cols: 1 }]}
     >
         {
-          products.map(product => <FeaturesCard 
-              key={product.id} 
-              { ...product }
-          /> )
+          products.map(product => <Stack>
+            <FeaturesCard 
+                key={product.id} 
+                { ...product }
+            />
+          </Stack>
+          )
         }
     </SimpleGrid>
   )
