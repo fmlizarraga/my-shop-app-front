@@ -42,9 +42,9 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const FeaturesCard = ({name,description,price,image,tags,badge}) => {
+export const FeaturesCard = ({name,description,price,image,tags,badge,optTitle}) => {
   const { classes } = useStyles();
-  const tagList = tags.map((tag) => (
+  const tagList = tags?.map((tag) => (
     <Center key={tag}>
       <IconTag size="1.05rem" className={classes.icon} stroke={1.5} />
       <Text size="xs">{tag}</Text>
@@ -53,6 +53,15 @@ export const FeaturesCard = ({name,description,price,image,tags,badge}) => {
 
   return (
     <Card withBorder radius="md" className={classes.card}>
+
+      {
+        optTitle
+          ? <Card.Section className={ classes.section } >
+            <Text fz="xl" fw={700} >{ optTitle }</Text>
+          </Card.Section>
+          : ''
+      }
+
       <Card.Section className={classes.imageSection}>
         <Image src={image} alt={name} />
       </Card.Section>
@@ -70,33 +79,41 @@ export const FeaturesCard = ({name,description,price,image,tags,badge}) => {
         
       </Group>
 
-      <Card.Section className={classes.section} mt="md">
-        <Text fz="sm" c="dimmed" className={classes.label}>
-          tags
-        </Text>
-
-        <Group spacing={8} mb={-8}>
-          {tagList}
-        </Group>
-      </Card.Section>
-
-      <Card.Section className={classes.section}>
-        <Group spacing={30}>
-          <div>
-            <Text fz="xl" fw={700} sx={{ lineHeight: 1 }}>
-              {price}
+      {
+        tags
+          ? <Card.Section className={classes.section} mt="md">
+            <Text fz="sm" c="dimmed" className={classes.label}>
+              tags
             </Text>
-            <Text fz="sm" c="dimmed" fw={500} sx={{ lineHeight: 1 }} mt={3}>
-              USD
-            </Text>
-          </div>
 
-          <Button radius="xl" style={{ flex: 1 }}>
-            <IconShoppingCartPlus size="1.2rem" className={`${classes.icon} ${classes.iconCart}`} stroke={2.4} />
-            Add to cart
-          </Button>
-        </Group>
-      </Card.Section>
+            <Group spacing={8} mb={-8}>
+              {tagList}
+            </Group>
+          </Card.Section>
+          : ''
+      }
+
+      {
+        price
+          ? <Card.Section className={classes.section}>
+            <Group spacing={30}>
+              <div>
+                <Text fz="xl" fw={700} sx={{ lineHeight: 1 }}>
+                  {price}
+                </Text>
+                <Text fz="sm" c="dimmed" fw={500} sx={{ lineHeight: 1 }} mt={3}>
+                  USD
+                </Text>
+              </div>
+
+              <Button radius="xl" style={{ flex: 1 }}>
+                <IconShoppingCartPlus size="1.2rem" className={`${classes.icon} ${classes.iconCart}`} stroke={2.4} />
+                Add to cart
+              </Button>
+            </Group>
+          </Card.Section>
+          : ''
+      }
     </Card>
   );
 }

@@ -23,9 +23,10 @@ import {
   IconSwitchHorizontal,
   IconChevronDown,
   IconShoppingCart,
+  IconBuildingStore,
 } from '@tabler/icons-react';
-import { MantineLogo } from '@mantine/ds';
-import { useAuthStore } from '../../hooks';
+
+import { useAuthStore, useUiStore } from '../../hooks';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -119,15 +120,18 @@ const useStyles = createStyles((theme) => ({
 //   tabs: string[];
 // }
 
-export const HeaderTabsColored = ({ tabs }) => {
+export const HeaderTabsColored = () => {
   const { user } = useAuthStore();
+  const { tabs, setActiveTab, activeTab } = useUiStore();
   const { classes, theme, cx } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
+  const onTabClick = (tab) => {
+    setActiveTab(tab);
+  }
 
-  // TODO evento onClick que guarde la tab seleccionada en el store global
   const items = tabs.map((tab) => (
-    <Tabs.Tab value={tab} key={tab}>
+    <Tabs.Tab value={tab} key={tab} onClick={ (e) => onTabClick(tab) } >
       {tab}
     </Tabs.Tab>
   ));
@@ -136,7 +140,10 @@ export const HeaderTabsColored = ({ tabs }) => {
     <Header className={classes.header}>
       <Container className={classes.mainSection}>
         <Group position="apart">
-          <MantineLogo size={28} inverted />
+          <Group>
+            <IconBuildingStore size={28} color={theme.white} />
+            <Text color={theme.white} ff="serif" fs="italic" fz="xl" fw={900} align="left" >React Shop</Text>
+          </Group>
 
           <Burger
             opened={opened}
@@ -208,7 +215,7 @@ export const HeaderTabsColored = ({ tabs }) => {
       </Container>
       <Container>
         <Tabs
-          defaultValue={tabs[1]}
+          defaultValue={activeTab}
           variant="outline"
           classNames={{
             root: classes.tabs,

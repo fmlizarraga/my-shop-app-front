@@ -1,8 +1,6 @@
 import { createStyles, Flex } from "@mantine/core";
 import { AboutLayout, HeaderTabsColored, HomeLayout, ShopLayout } from "../"
-
-// TODO esto tiene que estar en el store global ~
-const activeView = 'Shop';
+import { useUiStore } from "../../hooks";
 
 const useStyles = createStyles( theme => ({
   root: {
@@ -31,10 +29,11 @@ const useStyles = createStyles( theme => ({
 }) );
 
 export const ShopPage = () => {
+  const { tabs, activeTab } = useUiStore();
   const { classes } = useStyles();
   const selectViev = () => {
-    if( activeView === 'Shop' ) return <ShopLayout/>
-    else if( activeView === 'About' ) return <AboutLayout/>
+    if( activeTab === tabs[1] ) return <ShopLayout/>
+    else if( activeTab === tabs[2] ) return <AboutLayout/>
     else return <HomeLayout/>
   }
   return (
