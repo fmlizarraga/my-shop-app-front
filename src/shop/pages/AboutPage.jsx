@@ -90,7 +90,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const AboutLayout = () => {
+export const AboutPage = () => {
   const { classes } = useStyles();
 
   return (

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onSetActiveTab } from "../store";
+import { onSetActiveTab, onSetAdminTab } from "../store";
 
 export const useUiStore = () => {
     const { tabs, activeTab } = useSelector( state => state.ui );
@@ -9,11 +9,16 @@ export const useUiStore = () => {
         dispatch( onSetActiveTab(tab) );
     };
 
+    const setAdminTab = () => {
+      dispatch( onSetAdminTab() );
+    };
+
   return {
     // * Props
     tabs,
     activeTab,
     // * Methods
     setActiveTab,
+    setAdminTab,
   };
 }

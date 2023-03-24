@@ -7,12 +7,15 @@ export const uiSlice = createSlice({
         activeTab: 'Home',
     },
     reducers: {
-        onSetActiveTab: (state, { payload } ) => {
+        onSetActiveTab: ( state, { payload } ) => {
             state.activeTab = payload;
+        },
+        onSetAdminTab: ( state ) => {
+            state.tabs = ['Home', 'Shop', 'Admin']
         },
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveTab } = uiSlice.actions;
+export const { onSetActiveTab, onSetAdminTab } = uiSlice.actions;

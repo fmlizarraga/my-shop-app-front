@@ -1,8 +1,8 @@
 export * from './components/FeaturesCard';
 export * from './components/HeaderTabsColored';
 
-export * from './layouts/AboutLayout';
-export * from './layouts/HomeLayout';
-export * from './layouts/ShopLayout';
-
+export * from './pages/AboutPage';
+export * from './pages/HomePage';
 export * from './pages/ShopPage';
+
+export * from './layouts/ShopLayout';

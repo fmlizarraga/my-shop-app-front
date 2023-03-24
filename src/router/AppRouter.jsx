@@ -1,7 +1,8 @@
-import { Navigate, Route, Routes } from "react-router-dom"
-import { LoginPage } from "../auth"
-import { useAuthStore } from "../hooks"
-import { ShopPage } from "../shop"
+import { Navigate, Route, Routes } from "react-router-dom";
+
+import { LoginPage } from "../auth";
+import { useAuthStore } from "../hooks";
+import { ShopRouter } from "./ShopRouter";
 
 
 export const AppRouter = () => {
@@ -16,12 +17,7 @@ export const AppRouter = () => {
                     <Route path="/*" element={ <Navigate to="/login" /> } />
                 </>
             )
-            : (
-                <>
-                    <Route path="/" element={ <ShopPage/> } />
-                    <Route path="/*" element={ <Navigate to="/" /> } />
-                </>
-            )
+            : <Route path="/*" element={ <ShopRouter/> } />
         }
     </Routes>
   )

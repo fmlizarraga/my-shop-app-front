@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const pepe = {
     uid: 'abc123',
     name: 'Pepe',
-    authLevel : 'user',
+    authLevel : 'admin', // user admin
     adress: 'Sarmiento 77',
     phone: '+5493815123456',
     email: 'pepe@mail.com',

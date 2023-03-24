@@ -5,7 +5,7 @@ import { FeaturesCard } from '../components/FeaturesCard';
 
 const PRIMARY_COL_HEIGHT = rem(300);
 
-export const HomeLayout = () => {
+export const HomePage = () => {
   const { products } = useShopStore();
   const theme = useMantineTheme();
   const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - ${theme.spacing.md} / 2)`;
