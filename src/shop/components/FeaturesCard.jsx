@@ -1,6 +1,8 @@
 import { Card, Image, Text, Group, Badge, createStyles, Center, Button, rem } from '@mantine/core';
 import { IconPencil, IconShoppingCartPlus, IconTag, IconTrash } from '@tabler/icons-react';
 
+import { useShopStore } from '../../hooks';
+
 const useStyles = createStyles((theme) => ({
   card: {
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
@@ -46,8 +48,19 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const FeaturesCard = ({name,description,price,image,tags,badge,optTitle,isAdmin}) => {
+export const FeaturesCard = ({id,name,description,price,image,tags,badge,optTitle,isAdmin}) => {
   const { classes } = useStyles();
+  const { setFeaturedProduct, setActiveProduct, activeProduct } = useShopStore();
+
+  const handleSetActive = (product) => {
+    if(product.id !== activeProduct?.id) setActiveProduct(product);
+  };
+
+  const handleEdit = () => {
+    // ! delete me
+    console.log(activeProduct)
+  };
+  
   const tagList = tags?.map((tag) => (
     <Center key={tag}>
       <IconTag size="1.05rem" className={classes.icon} stroke={1.5} />
@@ -56,14 +69,14 @@ export const FeaturesCard = ({name,description,price,image,tags,badge,optTitle,i
   ));
 
   return (
-    <Card withBorder radius="md" className={classes.card}>
+    <Card withBorder radius="md" className={classes.card} onMouseOver={ () => handleSetActive({id,name,description,price,image,tags,badge}) } >
 
       {
         optTitle
           ? <Card.Section className={ classes.section } >
             <Text fz="xl" fw={700} >{ optTitle }</Text>
           </Card.Section>
-          : ''
+          : <></>
       }
 
       <Card.Section className={classes.imageSection}>
@@ -78,8 +91,8 @@ export const FeaturesCard = ({name,description,price,image,tags,badge,optTitle,i
           </Text>
           {
             isAdmin
-              ? <Button mt="md" radius="xl" style={{ flex: 1 }} >
-                Set offer
+              ? <Button mt="md" radius="xl" style={{ flex: 1 }} onClick={ setFeaturedProduct } >
+                Set featured
               </Button>
               : <></>
           }
@@ -101,7 +114,7 @@ export const FeaturesCard = ({name,description,price,image,tags,badge,optTitle,i
               {tagList}
             </Group>
           </Card.Section>
-          : ''
+          : <></>
       }
 
       {
@@ -120,7 +133,7 @@ export const FeaturesCard = ({name,description,price,image,tags,badge,optTitle,i
               {
                 isAdmin
                   ? <>
-                    <Button radius="xl" style={{ flex: 1 }}>
+                    <Button radius="xl" style={{ flex: 1 }} onClick={ handleEdit } >
                     <IconPencil size="1.2rem" className={`${classes.icon} ${classes.iconCart}`} stroke={2.4} />
                       Edit
                     </Button>

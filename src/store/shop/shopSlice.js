@@ -44,13 +44,41 @@ export const shopSlice = createSlice({
     initialState: {
         isLoadingProducts: false,
         products: tempProducts,
-        activeProduct: null
+        activeProduct: null,
+        featuredProduct: {
+          name:'<NAME>',
+          description: '<DESCRIPTION>',
+          price: 50,
+          image: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Arable_field_and_golf_course_-_geograph.org.uk_-_3753681.jpg',
+          tags: ['TAG'],
+          badge: 'OFFER'
+        }
     },
     reducers: {
         onSetActiveProduct: ( state, { payload } ) => {
-            state.activeProduct = payload;
+          state.activeProduct = null;
+          if(payload.id) state.activeProduct = payload;
+        },
+        onSetFeaturedProduct: ( state ) => {
+          state.featuredProduct = state.activeProduct;
         },
         // TODO create, update, delete
+        onAddNewProduct: ( state, {payload} ) => {
+          state.products.push( payload );
+          state.activeProduct = null;
+        },
+        onUpdateProduct: ( state, {payload} ) => {
+          state.products = state.products.map( product => {
+            if(product.id === payload.id) return payload;
+            return product;
+          });
+        },
+        onDeleteProduct: ( state ) => {
+          if( state.activeProduct ) {
+            state.products = state.products.filter( product => product.id !== state.activeProduct.id );
+            state.activeProduct = null;
+          }
+        },
         onLoadProducts: ( state, { payload = [] } ) => {
             state.isLoadingProducts = false;
             state.products = payload;
@@ -65,4 +93,12 @@ export const shopSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveProduct, onLoadProducts, onClearProducts } = shopSlice.actions;
+export const { 
+  onSetActiveProduct, 
+  onSetFeaturedProduct, 
+  onAddNewProduct, 
+  onUpdateProduct, 
+  onDeleteProduct, 
+  onLoadProducts, 
+  onClearProducts, 
+} = shopSlice.actions;

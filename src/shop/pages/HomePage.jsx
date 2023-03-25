@@ -6,14 +6,14 @@ import { FeaturesCard } from '../components/FeaturesCard';
 const PRIMARY_COL_HEIGHT = rem(300);
 
 export const HomePage = () => {
-  const { products } = useShopStore();
+  const { products, featuredProduct } = useShopStore();
   const theme = useMantineTheme();
-  const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - ${theme.spacing.md} / 2)`;
+  // const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - ${theme.spacing.md} / 2)`;
 
   return (
     <Container my="md">
       <SimpleGrid cols={2} spacing="md" breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-        <FeaturesCard optTitle="Offer of the day" {...products[0]} />
+        <FeaturesCard optTitle="Featured product" { ...featuredProduct } />
         <Grid gutter="md">
           <Grid.Col>
             <FeaturesCard
