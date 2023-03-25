@@ -1,5 +1,5 @@
 import { Card, Image, Text, Group, Badge, createStyles, Center, Button, rem } from '@mantine/core';
-import { IconShoppingCartPlus, IconTag } from '@tabler/icons-react';
+import { IconPencil, IconShoppingCartPlus, IconTag, IconTrash } from '@tabler/icons-react';
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -40,9 +40,13 @@ const useStyles = createStyles((theme) => ({
   iconCart: {
     color: theme.colors.green[6],
   },
+
+  iconDanger: {
+    color: theme.colors.red[6],
+  },
 }));
 
-export const FeaturesCard = ({name,description,price,image,tags,badge,optTitle}) => {
+export const FeaturesCard = ({name,description,price,image,tags,badge,optTitle,isAdmin}) => {
   const { classes } = useStyles();
   const tagList = tags?.map((tag) => (
     <Center key={tag}>
@@ -72,6 +76,13 @@ export const FeaturesCard = ({name,description,price,image,tags,badge,optTitle})
           <Text fz="xs" c="dimmed">
             {description}
           </Text>
+          {
+            isAdmin
+              ? <Button mt="md" radius="xl" style={{ flex: 1 }} >
+                Set offer
+              </Button>
+              : <></>
+          }
         </div>
         {
           badge ? <Badge variant="outline">{ badge }</Badge> : ''
@@ -106,14 +117,28 @@ export const FeaturesCard = ({name,description,price,image,tags,badge,optTitle})
                 </Text>
               </div>
 
-              <Button radius="xl" style={{ flex: 1 }}>
-                <IconShoppingCartPlus size="1.2rem" className={`${classes.icon} ${classes.iconCart}`} stroke={2.4} />
-                Add to cart
-              </Button>
+              {
+                isAdmin
+                  ? <>
+                    <Button radius="xl" style={{ flex: 1 }}>
+                    <IconPencil size="1.2rem" className={`${classes.icon} ${classes.iconCart}`} stroke={2.4} />
+                      Edit
+                    </Button>
+                    <Button variant="outline" radius="xl" style={{ flex: 1 }}>
+                    <IconTrash size="1.2rem" className={`${classes.icon} ${classes.iconDanger}`} stroke={2.4} />
+                      Delete
+                    </Button>
+                  </>
+                  : <Button radius="xl" style={{ flex: 1 }}>
+                    <IconShoppingCartPlus size="1.2rem" className={`${classes.icon} ${classes.iconCart}`} stroke={2.4} />
+                    Add to cart
+                  </Button>
+              }
             </Group>
           </Card.Section>
-          : ''
+          : <></>
       }
+
     </Card>
   );
 }
