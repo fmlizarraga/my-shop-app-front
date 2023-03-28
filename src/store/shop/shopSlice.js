@@ -62,7 +62,6 @@ export const shopSlice = createSlice({
         onSetFeaturedProduct: ( state ) => {
           state.featuredProduct = state.activeProduct;
         },
-        // TODO create, update, delete
         onAddNewProduct: ( state, {payload} ) => {
           state.products.push( payload );
           state.activeProduct = null;

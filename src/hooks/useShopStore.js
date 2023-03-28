@@ -8,6 +8,7 @@ export const useShopStore = () => {
     const setActiveProduct = (product) => {
         dispatch( onSetActiveProduct(product) );
     };
+
     const setFeaturedProduct = () => {
       // TODO reflect this at the backend
       dispatch( onSetFeaturedProduct() );

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onSetActiveTab, onSetAdminTab } from "../store";
+import { onSetActiveTab, onSetAdminTab, onOpenProductEditModal, onCloseProductEditModal } from "../store";
 
 export const useUiStore = () => {
-    const { tabs, activeTab } = useSelector( state => state.ui );
+    const { tabs, activeTab, isProductEditModalOpen } = useSelector( state => state.ui );
     const dispatch = useDispatch();
 
     const setActiveTab = (tab) => {
@@ -13,12 +13,23 @@ export const useUiStore = () => {
       dispatch( onSetAdminTab() );
     };
 
+    const openProductEditModal = () => {
+      dispatch( onOpenProductEditModal() );
+    };
+
+    const closeProductEditModal = () => {
+      dispatch( onCloseProductEditModal() );
+    };
+
   return {
     // * Props
     tabs,
     activeTab,
+    isProductEditModalOpen,
     // * Methods
     setActiveTab,
     setAdminTab,
+    openProductEditModal,
+    closeProductEditModal,
   };
 }

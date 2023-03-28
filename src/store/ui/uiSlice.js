@@ -5,6 +5,7 @@ export const uiSlice = createSlice({
     initialState: {
         tabs: ['Home', 'Shop', 'About'],
         activeTab: 'Home',
+        isProductEditModalOpen: false,
     },
     reducers: {
         onSetActiveTab: ( state, { payload } ) => {
@@ -13,9 +14,20 @@ export const uiSlice = createSlice({
         onSetAdminTab: ( state ) => {
             state.tabs = ['Home', 'Shop', 'Admin']
         },
+        onOpenProductEditModal: ( state ) => {
+            state.isProductEditModalOpen = true;
+        },
+        onCloseProductEditModal: ( state ) => {
+            state.isProductEditModalOpen = false;
+        },
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveTab, onSetAdminTab } = uiSlice.actions;
+export const { 
+    onSetActiveTab, 
+    onSetAdminTab, 
+    onOpenProductEditModal, 
+    onCloseProductEditModal, 
+} = uiSlice.actions;
