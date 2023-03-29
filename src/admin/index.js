@@ -1,3 +1,4 @@
+export * from './components/TagsField';
 export * from './components/EditorModal';
 export * from './components/ProductEditor';
 

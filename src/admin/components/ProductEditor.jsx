@@ -43,10 +43,6 @@ export const ProductEditor = () => {
       openProductEditModal();
     };
 
-    const handleEdit = () => {};
-
-    const handleDelete = () => {};
-
   return (
     <>
       <Box pb="xl" >

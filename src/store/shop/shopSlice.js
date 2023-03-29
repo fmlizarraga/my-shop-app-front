@@ -16,6 +16,7 @@ const tempProducts = [
       name: 'laptop',
       description: 'A portable computer',
       price: 1500,
+      badge: '',
       image: 'https://upload.wikimedia.org/wikipedia/commons/5/50/Macbook_Air_M1_Silver_PNG.png',
       tags: ['technology','new','2022']
     },
@@ -33,6 +34,7 @@ const tempProducts = [
       name: 'Running shoes',
       description: 'Run faster and longer!',
       price: 120,
+      badge: '',
       image: 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Reebok_Royal_Glide_Ripple_Clip_shoe.jpg',
       tags: ['clothing','sports','running']
     },

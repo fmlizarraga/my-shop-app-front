@@ -1,7 +1,7 @@
 import { Card, Image, Text, Group, Badge, createStyles, Center, Button, rem } from '@mantine/core';
 import { IconPencil, IconShoppingCartPlus, IconTag, IconTrash } from '@tabler/icons-react';
 
-import { useShopStore } from '../../hooks';
+import { useShopStore, useUiStore } from '../../hooks';
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -51,14 +51,14 @@ const useStyles = createStyles((theme) => ({
 export const FeaturesCard = ({id,name,description,price,image,tags,badge,optTitle,isAdmin}) => {
   const { classes } = useStyles();
   const { setFeaturedProduct, setActiveProduct, activeProduct } = useShopStore();
+  const { openProductEditModal } = useUiStore();
 
   const handleSetActive = (product) => {
     if(product.id !== activeProduct?.id) setActiveProduct(product);
   };
 
   const handleEdit = () => {
-    // ! delete me
-    console.log(activeProduct)
+    openProductEditModal();
   };
   
   const tagList = tags?.map((tag) => (

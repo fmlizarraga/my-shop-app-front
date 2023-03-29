@@ -1,8 +1,24 @@
-import { Button, Card, Container, createStyles, Grid, Group, Modal, rem, TextInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { IconSquarePlus } from "@tabler/icons-react";
 import { useEffect } from "react";
+import Joi from "joi";
+import { Button, Container, createStyles, Grid, Group, Modal, rem, TextInput } from "@mantine/core";
+import { joiResolver, useForm } from "@mantine/form";
+import { IconSquarePlus } from "@tabler/icons-react";
+
 import { useShopStore, useUiStore } from "../../hooks";
+import { TagsField } from "./TagsField";
+
+const schema = Joi.object({
+  name: Joi.string().alphanum().min(3).message('Name must contain at lest 3 letters'),
+  description: Joi.string().min(3).message('Descrition must be at least 3 letters long'),
+  price: Joi.number().min(0).message('Price must be a positive value'),
+  image: Joi.string().uri(),
+  badge: Joi.string().max(8).allow(''),
+  tags: Joi.array(),
+});
+
+const tagSch = Joi.object({
+  newTag: Joi.string().min(2).max(20),
+});
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -14,7 +30,7 @@ const useStyles = createStyles((theme) => ({
     },
   
     input: {
-      height: rem(54),
+      minHeight: rem(54),
       paddingTop: rem(18),
     },
   
@@ -27,26 +43,9 @@ const useStyles = createStyles((theme) => ({
       zIndex: 1,
     },
 
-    card: {
-        border: `${rem(1)} solid ${
-            theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1]
-        }`,
-    },
-
-    cardTitle: {
-        '&::after': {
-            content: '""',
-            display: 'block',
-            backgroundColor: theme.fn.primaryColor(),
-            width: rem(45),
-            height: rem(2),
-            marginTop: theme.spacing.sm,
-        },
-    },
-
     buttonTag: {
-        height: rem(54),
-        margin: 0
+      height: rem(54),
+      margin: 0
     },
 
   }));
@@ -54,7 +53,7 @@ const useStyles = createStyles((theme) => ({
 export const EditorModal = () => {
     const { classes } = useStyles();
     const { isProductEditModalOpen, closeProductEditModal } = useUiStore();
-    const { activeProduct } = useShopStore();
+    const { activeProduct, setActiveProduct } = useShopStore();
 
     const form = useForm({
       initialValues: {
@@ -62,11 +61,18 @@ export const EditorModal = () => {
         description: '',
         price: 0,
         badge: '',
-        image: '',
+        image: 'https://',
         tags: [],
-        newTag: '',
       },
-      validate: {},
+      validate: joiResolver(schema),
+      // validateInputOnBlur: true,
+    });
+
+    const tagForm = useForm({
+      initialValues: {
+        newTag: ''
+      },
+      validate: joiResolver(tagSch),
     });
 
     useEffect(() => {
@@ -80,18 +86,28 @@ export const EditorModal = () => {
           tags: activeProduct.tags,
         })
       }
-    }, []);
+    }, [isProductEditModalOpen]);
     
 
     const handleSubmit = (values) => {
       console.log(values);
       form.reset();
+      setActiveProduct({});
       closeProductEditModal();
     };
 
     const hadleCancel = () => {
       form.reset();
+      setActiveProduct({});
       closeProductEditModal();
+    };
+
+    const handleAddTag = () => {
+      tagForm.validateField('newTag');
+      if( tagForm.isValid('newTag') ) {
+        form.insertListItem('tags', tagForm.values.newTag);
+        tagForm.setFieldValue('newTag','');
+      }
     };
 
   return (
@@ -160,7 +176,11 @@ export const EditorModal = () => {
                   />
                 </Grid.Col>
                 <Grid.Col xs={12} pb={0} pt={0} >
-                  <Card shadow="md" className={ classes.card } padding="xl" mb="md" ></Card>
+                  <TagsField
+                    label="Tags"
+                    classNames={classes}
+                    { ...form.getInputProps("tags") }
+                  />
                 </Grid.Col>
                 <Grid.Col xs={12} pt={0} >
                   <TextInput 
@@ -175,10 +195,11 @@ export const EditorModal = () => {
                         radius={0}
                         variant="subtle" 
                         leftIcon={ <IconSquarePlus size="1.2rem" stroke={2.4} /> } 
+                        onClick={ handleAddTag }
                       >Add</Button> 
                     } 
                     rightSectionWidth={100} 
-                    { ...form.getInputProps("newTag") }
+                    { ...tagForm.getInputProps("newTag") }
                   />
                 </Grid.Col>
               </Grid>
