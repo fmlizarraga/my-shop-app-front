@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onSetActiveProduct, onSetFeaturedProduct } from "../store";
+import { onSetActiveProduct, onSetFeaturedProduct, onAddNewProduct, onUpdateProduct, onDeleteProduct } from "../store";
 
 export const useShopStore = () => {
     const { isLoadingProducts, products, activeProduct, featuredProduct } = useSelector( state => state.shop );
@@ -13,8 +13,29 @@ export const useShopStore = () => {
       // TODO reflect this at the backend
       dispatch( onSetFeaturedProduct() );
     };
-    // TODO acciones para llegar al back y
-    // TODO cargar, crear, editar y borrar items
+
+    const startSavingProduct = (product) => {
+      if(product.id) {
+        // update
+        // TODO intentar actualizarlo en el back
+        dispatch( onUpdateProduct(product) );
+      }
+      else {
+        // create
+        // TODO reemplazar esto por un objeto del back
+        const newProduct = {
+          id: new Date().valueOf().toString(),
+          ...product,
+        }
+        dispatch( onAddNewProduct(newProduct) );
+      }
+    };
+
+    const startDeletingProduct = () => {
+      // TODO intentar llegar al back y borrar el producto ahi
+      dispatch( onDeleteProduct() );
+    };
+
   return {
         // * Props
         isLoadingProducts,
@@ -24,5 +45,7 @@ export const useShopStore = () => {
         // * Methods
         setActiveProduct,
         setFeaturedProduct,
+        startSavingProduct,
+        startDeletingProduct,
   };
 }

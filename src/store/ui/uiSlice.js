@@ -6,6 +6,7 @@ export const uiSlice = createSlice({
         tabs: ['Home', 'Shop', 'About'],
         activeTab: 'Home',
         isProductEditModalOpen: false,
+        isDeleteDialogOpen: false,
     },
     reducers: {
         onSetActiveTab: ( state, { payload } ) => {
@@ -20,6 +21,12 @@ export const uiSlice = createSlice({
         onCloseProductEditModal: ( state ) => {
             state.isProductEditModalOpen = false;
         },
+        onOpenDeleteDialog: ( state ) => {
+            state.isDeleteDialogOpen = true;
+        },
+        onCloseDeleteDialog: ( state ) => {
+            state.isDeleteDialogOpen = false;
+        },
     }
 });
 
@@ -30,4 +37,6 @@ export const {
     onSetAdminTab, 
     onOpenProductEditModal, 
     onCloseProductEditModal, 
+    onOpenDeleteDialog, 
+    onCloseDeleteDialog, 
 } = uiSlice.actions;

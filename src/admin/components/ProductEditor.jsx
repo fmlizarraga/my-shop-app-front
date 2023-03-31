@@ -3,6 +3,7 @@ import { IconAlertTriangle, IconSquarePlus } from "@tabler/icons-react";
 
 import { useShopStore, useUiStore } from "../../hooks";
 import { FeaturesCard } from "../../shop";
+import { DeleteDialog } from "./DeleteDialog";
 import { EditorModal } from "./EditorModal";
 
 const useStyles = createStyles((theme) => ({
@@ -77,6 +78,7 @@ export const ProductEditor = () => {
           }
       </SimpleGrid>
       <EditorModal/>
+      <DeleteDialog/>
     </>
   )
 }

@@ -8,7 +8,7 @@ import { useShopStore, useUiStore } from "../../hooks";
 import { TagsField } from "./TagsField";
 
 const schema = Joi.object({
-  name: Joi.string().alphanum().min(3).message('Name must contain at lest 3 letters'),
+  name: Joi.string().min(3).message('Name must contain at lest 3 letters'),
   description: Joi.string().min(3).message('Descrition must be at least 3 letters long'),
   price: Joi.number().min(0).message('Price must be a positive value'),
   image: Joi.string().uri(),
@@ -53,7 +53,7 @@ const useStyles = createStyles((theme) => ({
 export const EditorModal = () => {
     const { classes } = useStyles();
     const { isProductEditModalOpen, closeProductEditModal } = useUiStore();
-    const { activeProduct, setActiveProduct } = useShopStore();
+    const { activeProduct, setActiveProduct, startSavingProduct } = useShopStore();
 
     const form = useForm({
       initialValues: {
@@ -90,7 +90,9 @@ export const EditorModal = () => {
     
 
     const handleSubmit = (values) => {
-      console.log(values);
+      const newProduct = {...values};
+      if(activeProduct) newProduct.id = activeProduct.id;
+      startSavingProduct(newProduct);
       form.reset();
       setActiveProduct({});
       closeProductEditModal();

@@ -51,14 +51,10 @@ const useStyles = createStyles((theme) => ({
 export const FeaturesCard = ({id,name,description,price,image,tags,badge,optTitle,isAdmin}) => {
   const { classes } = useStyles();
   const { setFeaturedProduct, setActiveProduct, activeProduct } = useShopStore();
-  const { openProductEditModal } = useUiStore();
+  const { openProductEditModal, openDeleteDialog } = useUiStore();
 
   const handleSetActive = (product) => {
     if(product.id !== activeProduct?.id) setActiveProduct(product);
-  };
-
-  const handleEdit = () => {
-    openProductEditModal();
   };
   
   const tagList = tags?.map((tag) => (
@@ -133,11 +129,11 @@ export const FeaturesCard = ({id,name,description,price,image,tags,badge,optTitl
               {
                 isAdmin
                   ? <>
-                    <Button radius="xl" style={{ flex: 1 }} onClick={ handleEdit } >
+                    <Button radius="xl" style={{ flex: 1 }} onClick={ openProductEditModal } >
                     <IconPencil size="1.2rem" className={`${classes.icon} ${classes.iconCart}`} stroke={2.4} />
                       Edit
                     </Button>
-                    <Button variant="outline" radius="xl" style={{ flex: 1 }}>
+                    <Button variant="outline" radius="xl" style={{ flex: 1 }} onClick={ openDeleteDialog } >
                     <IconTrash size="1.2rem" className={`${classes.icon} ${classes.iconDanger}`} stroke={2.4} />
                       Delete
                     </Button>
