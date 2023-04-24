@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const pepe = {
     uid: 'abc123',
     name: 'Pepe',
-    authLevel : 'admin', // user admin
+    authLevel : 'user', // user admin
     adress: 'Sarmiento 77',
     phone: '+5493815123456',
     email: 'pepe@mail.com',
@@ -29,9 +29,17 @@ export const authSlice = createSlice({
             state.user = payload,
             state.errorMsg = undefined
         },
+        onAddToCart: ( state, { payload } ) => {
+            const found = state.user.cart.find(product => product.id === payload.id);
+            if(found) state.user.cart = state.user.cart.map(product => {
+                if(product.id === payload.id) return { ...payload, quantity: product.quantity + 1 }
+                else return product;
+            });
+            else state.user.cart.push({...payload, quantity:1});
+        },
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onChecking, onLogin } = authSlice.actions;
+export const { onChecking, onLogin, onAddToCart } = authSlice.actions;

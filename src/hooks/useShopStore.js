@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onSetActiveProduct, onSetFeaturedProduct, onAddNewProduct, onUpdateProduct, onDeleteProduct } from "../store";
+import { onSetActiveProduct, onSetFeaturedProduct, onAddNewProduct, onUpdateProduct, onDeleteProduct, onAddToCart } from "../store";
 
 export const useShopStore = () => {
     const { isLoadingProducts, products, activeProduct, featuredProduct } = useSelector( state => state.shop );
@@ -13,6 +13,13 @@ export const useShopStore = () => {
       // TODO reflect this at the backend
       dispatch( onSetFeaturedProduct() );
     };
+
+    const startAddingToCart = () => {
+      // TODO try to do this on the back before
+      dispatch( onAddToCart(activeProduct) );
+    };
+
+    // TODO actions for load and clear products
 
     const startSavingProduct = (product) => {
       if(product.id) {
@@ -47,5 +54,6 @@ export const useShopStore = () => {
         setFeaturedProduct,
         startSavingProduct,
         startDeletingProduct,
+        startAddingToCart,
   };
 }

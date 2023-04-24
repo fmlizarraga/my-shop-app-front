@@ -50,7 +50,6 @@ export const shopSlice = createSlice({
         featuredProduct: {
           name:'<NAME>',
           description: '<DESCRIPTION>',
-          price: 50,
           image: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Arable_field_and_golf_course_-_geograph.org.uk_-_3753681.jpg',
           tags: ['TAG'],
           badge: 'OFFER'

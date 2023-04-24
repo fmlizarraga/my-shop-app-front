@@ -11,6 +11,9 @@ import {
   Burger,
   rem,
   Header,
+  TextInput,
+  Button,
+  Divider,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import {
@@ -24,6 +27,7 @@ import {
   IconChevronDown,
   IconShoppingCart,
   IconBuildingStore,
+  IconSearch,
 } from '@tabler/icons-react';
 
 import { useAuthStore, useUiStore } from '../../hooks';
@@ -76,7 +80,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   tabs: {
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('xs')]: {
       display: 'none',
     },
   },
@@ -108,6 +112,13 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
+  search: {
+    width: '55%',
+    [theme.fn.smallerThan('sm')]: {
+      display: 'none',
+    },
+  },
+
   sticky: {
     position: 'fixed',
     top: 0,
@@ -126,9 +137,14 @@ export const HeaderTabsColored = () => {
   const { classes, theme, cx } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
+
   const onTabClick = (tab) => {
     setActiveTab(tab);
-  }
+  };
+
+  const onClickCart = () => {
+    setActiveTab('Cart');
+  };
 
   const items = tabs.map((tab) => (
     <Tabs.Tab value={tab} key={tab} onClick={ (e) => onTabClick(tab) } >
@@ -153,6 +169,24 @@ export const HeaderTabsColored = () => {
             color={theme.white}
           />
 
+          <TextInput
+            placeholder="Search"
+            radius='xl'
+            className={classes.search}
+            rightSection={
+              <>
+                <Divider orientation='vertical' size='sm' />
+                <Button
+                  fullWidth
+                  radius={0}
+                  variant='subtle'
+                ><IconSearch size="1rem" stroke={1.5} /></Button>
+              </>
+            }
+            rightSectionWidth='xl'
+            // here goes the inputprops...
+          />
+
           <Menu
             width={260}
             position="bottom-end"
@@ -160,6 +194,7 @@ export const HeaderTabsColored = () => {
             onClose={() => setUserMenuOpened(false)}
             onOpen={() => setUserMenuOpened(true)}
             withinPortal
+            offset={60}
           >
             <Menu.Target>
               <UnstyledButton
@@ -177,6 +212,7 @@ export const HeaderTabsColored = () => {
             <Menu.Dropdown>
               <Menu.Item
                 icon={<IconShoppingCart size="0.9rem" stroke={1.5} color={theme.colors.green[6]} />}
+                onClick={ onClickCart }
               >
                 Your cart
               </Menu.Item>
@@ -215,7 +251,7 @@ export const HeaderTabsColored = () => {
       </Container>
       <Container>
         <Tabs
-          defaultValue={activeTab}
+          defaultValue="Home"
           variant="outline"
           classNames={{
             root: classes.tabs,

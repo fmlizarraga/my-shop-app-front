@@ -1,4 +1,4 @@
-import { createStyles, Title, Text, Button, Container, rem } from '@mantine/core';
+import { createStyles, Title, Text, Button, Container, rem, Anchor } from '@mantine/core';
 import { GithubIcon } from '@mantine/ds';
 import { IconBrandLinkedin } from '@tabler/icons-react';
 
@@ -112,7 +112,7 @@ export const AboutPage = () => {
         <Container p={0} size={600}>
           <Text size="lg" color="dimmed" className={classes.description}>
             This page was built using React, React-router-dom, React-redux, Reduxjs Toolkit, React Mantine and Tabler Icons. 
-            All the images used are licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">Creative Commons</a> licence.
+            All the images used are licensed under the <Anchor href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">Creative Commons</Anchor> licence.
           </Text>
           <Text size="md" color="dimmed" className={classes.description} mt={10} >
             Franco Matias Lizarraga 2023

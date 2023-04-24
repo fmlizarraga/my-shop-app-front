@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { AdminPage } from "../admin";
 import { useAuthStore, useUiStore } from "../hooks";
-import { AboutPage, HomePage, ShopLayout, ShopPage } from "../shop";
+import { AboutPage, CartPage, HomePage, ShopLayout, ShopPage } from "../shop";
 
 export const ShopRouter = () => {
     const { activeTab, setAdminTab } = useUiStore();
@@ -13,17 +13,15 @@ export const ShopRouter = () => {
         if( user.authLevel === 'admin' ) setAdminTab();
     }, []);
     useEffect(() => {
-        if(activeTab === 'Shop') navigate('/shop');
-        else if(activeTab === 'About') navigate('/about');
-        else if(activeTab === 'Admin') navigate('/admin');
-        else if(activeTab === 'Home') navigate('/');
+        const page = activeTab.toLowerCase();
+        navigate('/' + page);
     },[activeTab]);
   return (
     <>
         <ShopLayout>
             <Routes>
                 <Route path="/shop" element={ <ShopPage/> } />
-                <Route path="/about" element={ <AboutPage/> } />
+                <Route path="/cart" element={ <CartPage/> } />
                 { user.authLevel === 'admin'
                     ? <Route path="/admin" element={ <AdminPage/> } />
                     : <Route path="/about" element={ <AboutPage/> } />

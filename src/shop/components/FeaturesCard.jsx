@@ -50,7 +50,7 @@ const useStyles = createStyles((theme) => ({
 
 export const FeaturesCard = ({id,name,description,price,image,tags,badge,optTitle,isAdmin}) => {
   const { classes } = useStyles();
-  const { setFeaturedProduct, setActiveProduct, activeProduct } = useShopStore();
+  const { setFeaturedProduct, setActiveProduct, activeProduct, startAddingToCart } = useShopStore();
   const { openProductEditModal, openDeleteDialog } = useUiStore();
 
   const handleSetActive = (product) => {
@@ -138,7 +138,7 @@ export const FeaturesCard = ({id,name,description,price,image,tags,badge,optTitl
                       Delete
                     </Button>
                   </>
-                  : <Button radius="xl" style={{ flex: 1 }}>
+                  : <Button radius="xl" style={{ flex: 1 }} onClick={ startAddingToCart } >
                     <IconShoppingCartPlus size="1.2rem" className={`${classes.icon} ${classes.iconCart}`} stroke={2.4} />
                     Add to cart
                   </Button>
