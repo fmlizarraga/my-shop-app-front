@@ -1,3 +1,4 @@
+export * from "./components/SocialButtons";
 export * from "./components/SignHeaderBar";
 
 export * from "./pages/RegisterPage";

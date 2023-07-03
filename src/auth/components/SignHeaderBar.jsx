@@ -1,7 +1,36 @@
-import { createStyles, Header, Group, Button, Box, rem } from "@mantine/core";
-import { MantineLogo } from "@mantine/ds";
+import {
+  createStyles,
+  Header,
+  Group,
+  Button,
+  rem,
+  Text,
+  Container,
+  Anchor,
+} from "@mantine/core";
+import { IconBuildingStore } from "@tabler/icons-react";
+import { useUiStore } from "../../hooks";
 
 const useStyles = createStyles((theme) => ({
+  header: {
+    position: "fixed",
+    width: "100%",
+    // height: 60,
+    paddingTop: theme.spacing.sm,
+    // paddingBottom: theme.spacing.md,
+    backgroundColor: theme.fn.variant({
+      variant: "filled",
+      color: theme.primaryColor,
+    }).background,
+    borderBottom: `${rem(1)} solid ${
+      theme.fn.variant({ variant: "filled", color: theme.primaryColor })
+        .background
+    }`,
+    marginBottom: rem(60),
+  },
+  mainSection: {
+    paddingBottom: theme.spacing.sm,
+  },
   link: {
     display: "flex",
     alignItems: "center",
@@ -72,32 +101,57 @@ const useStyles = createStyles((theme) => ({
 
 export const SignHeaderBar = () => {
   const { classes, theme } = useStyles();
+  const { tabs, setActiveTab, activeTab } = useUiStore();
+
+  const onTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const links = tabs.map((tab) => (
+    <Anchor
+      key={tab}
+      component="button"
+      type="button"
+      className={classes.link}
+      underline={false}
+      onClick={() => onTabClick(tab)}
+    >
+      {tab}
+    </Anchor>
+  ));
 
   return (
-    <Header height={60} px="md">
-      <Group position="apart" sx={{ height: "100%" }}>
-        <MantineLogo size={30} />
-        <Group
-          sx={{ height: "100%" }}
-          spacing={0}
-          className={classes.hiddenMobile}
-        >
-          <a href="#" className={classes.link}>
-            Home
-          </a>
-          <a href="#" className={classes.link}>
-            Learn
-          </a>
-          <a href="#" className={classes.link}>
-            Academy
-          </a>
-        </Group>
+    <Header className={classes.header}>
+      <Container size="xl" className={classes.mainSection}>
+        <Group position="apart" sx={{ height: "100%" }}>
+          <Group>
+            <IconBuildingStore size={28} color={theme.white} />
+            <Text
+              color={theme.white}
+              ff="serif"
+              fs="italic"
+              fz="xl"
+              fw={900}
+              align="left"
+            >
+              React Shop
+            </Text>
+          </Group>
+          <Group
+            sx={{ height: "100%" }}
+            spacing={0}
+            className={classes.hiddenMobile}
+          >
+            {links}
+          </Group>
 
-        <Group className={classes.hiddenMobile}>
-          <Button variant="default">Log in</Button>
-          <Button>Sign up</Button>
+          <Group className={classes.hiddenMobile}>
+            <Button variant="default" onClick={() => onTabClick("login")}>
+              Log in
+            </Button>
+          </Group>
         </Group>
-      </Group>
+      </Container>
     </Header>
   );
 };
