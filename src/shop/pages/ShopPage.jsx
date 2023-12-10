@@ -8,8 +8,10 @@ export const ShopPage = () => {
   return (
     <SimpleGrid 
         cols={3} 
-        spacing="xl" 
-        breakpoints={[{ maxWidth: 'md', cols: 1 }]}
+        spacing="md" 
+        maw={1200}
+        style={{margin: 'auto'}}
+        breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
     >
         {
           products.map(product => <Stack key={product.id + '-stack'} >

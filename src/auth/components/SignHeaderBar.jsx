@@ -123,7 +123,7 @@ export const SignHeaderBar = () => {
   return (
     <Header className={classes.header}>
       <Container size="xl" className={classes.mainSection}>
-        <Group position="apart" sx={{ height: "100%" }}>
+        <Group position="apart" sx={{ height: "100vp" }}>
           <Group>
             <IconBuildingStore size={28} color={theme.white} />
             <Text
