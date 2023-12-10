@@ -46,6 +46,11 @@ This frontend uses Redux and Redux Toolkit for state management. The state is or
 
 This frontend uses Mantine UI for component styles. The components are designed to be reusable and customizable, allowing for a consistent and visually appealing user interface.
 
+## Live preview
+[https://65752688a8508d4ec5ee188b--heroic-sorbet-642922.netlify.app](https://65752688a8508d4ec5ee188b--heroic-sorbet-642922.netlify.app)
+
+You will be automatically logged in as a test user, since this preview isn't connected to a back-end server
+
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for more information.
